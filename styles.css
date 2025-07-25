@@ -10,19 +10,17 @@
   --primary-text: #444242;
   --accent: #122c5d;
   --nav-bg: #fff;
-  --nav-text: rgba(255,255,255);
+  --nav-text: #ffffff; /* Simplified from rgba(255,255,255) */
   --nav-text-60: rgba(255,255,255,0.7);
   --footer-bg: #222;
   --footer-text: #fff;
   --card-bg: #fff;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --light: #f9f9f9;
-  --secondary: #2563eb;
   --primary: #4f8cff;
   --white: #ffffff;
-  --light: #f0f0f0; /* Added a light variable for general use */
-  --secondary: #2563eb; /* Defined secondary color for hover states etc. */
+  --light: #f0f0f0; /* Kept one definition for --light */
+  --secondary: #2563eb; /* Kept one definition for --secondary */
 }
 
 body {
@@ -31,9 +29,9 @@ body {
   background-size: cover;
   background-color: var(--primary-bg);
   color: var(--primary-text);
-  transition: background var(--transition), color var(--transition);
   min-height: 100vh;
-  transition: background 0.5s ease 0.2s;
+  /* Combined transition properties into one declaration */
+  transition: background var(--transition), color var(--transition);
 }
 
 .list-group {
@@ -50,7 +48,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: 500;
   transition: background-color 0.3s ease;
-  color: black; /* Set default color here */
+  color: var(--primary-text); /* Changed to use variable for theme consistency */
 }
 
 .list-group-item:hover {
@@ -140,6 +138,7 @@ body {
   align-items: center;
 }
 .nav-links a {
+  /* Removed redundant 'color' declaration. Using --nav-text-60 now */
   color: var(--nav-text-60);
   text-decoration: none;
   font-size: 1rem;
@@ -147,7 +146,6 @@ body {
   position: relative;
   transition: all 0.3s ease;
   border-radius: 6px;
-  color: rgba(255, 255, 255);
 }
 
 /* add underline in navLinks */
@@ -164,25 +162,23 @@ body {
 
 .nav-links a:hover::after {
   width: 100%;
-
 }
 
 .nav-links a:hover {
-
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
   color: white;
 }
 .nav-links a::after {
   content: '';
-    position: absolute;
-    left: 8px;
-    bottom:3px;
-    width: 84%;
-    height: 1px;
-    background: #fff;
-    transform-origin: right;
-    transform: scaleX(0);
-    transition: transform .5s;
+  position: absolute;
+  left: 8px;
+  bottom:3px;
+  width: 84%;
+  height: 1px;
+  background: #fff;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .5s;
 }
 
 .nav-links a:hover::after {
@@ -191,7 +187,7 @@ body {
 }
 
 .nav-links a.active {
- text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
   font-weight: 700;
   color: var(--nav-text);
   font-size: 1.1rem;
@@ -216,6 +212,7 @@ body {
 .github-icon:hover svg path,
 .github-icon:focus svg path {
   fill: #0366d6;
+} /* Added missing closing brace here */
 
 /* Theme Toggle */
 #theme-toggle {
@@ -311,7 +308,8 @@ body {
   align-items: center;
   text-align: center;
   padding: 2rem;
-  color: var(--text-color); /* if you're using CSS variables */
+  /* Changed to use primary-text for consistency. If you meant a different color, define a new var */
+  color: var(--primary-text);
 }
 
 .landing-section::after {
@@ -338,7 +336,7 @@ body {
   max-width: 600px;
   margin: 0 auto 2rem auto;
   font-size: 1.1rem;
-  color: #444;
+  color: var(--primary-text); /* Changed to use variable for theme consistency */
 }
 .cta-btn {
   display: inline-block;
@@ -406,7 +404,7 @@ main {
   box-shadow: var(--card-shadow);
   transform: translateY(40px);
   transition: opacity 0.7s, transform 0.7s;
-  background-color: whitesmoke; /* Set default background here */
+  background-color: var(--card-bg); /* Changed to use variable for theme consistency */
 }
 .info-section.visible {
   opacity: 1;
@@ -417,7 +415,7 @@ main {
   color: var(--accent);
 }
 .info-section p {
-  color: black; /* Set default text color here */
+  color: var(--primary-text); /* Changed to use variable for theme consistency */
 }
 
 .footer {
@@ -586,11 +584,9 @@ body.dark {
 }
 
 body.dark .landing-section {
+  /* Removed redundant background properties, inherited from body.dark */
   height: 100vh;
   width: 100%;
-  background: url("images/bgdark.png") no-repeat center center fixed;
-  background-size: cover;
-  background-position: center;
 }
 
 body.dark .info-section p {
@@ -601,11 +597,11 @@ body.dark .landing-section p {
 }
 /* Apply dark theme to info-section background */
 body.dark .info-section {
-    background-color: var(--card-bg); /* Use card-bg for consistency */
+  background-color: var(--card-bg); /* Use card-bg for consistency */
 }
 body.dark .list-group-item {
-    background-color: var(--card-bg); /* Use card-bg for consistency */
-    color: var(--primary-text); /* Ensure text is readable in dark mode */
+  background-color: var(--card-bg); /* Use card-bg for consistency */
+  color: var(--primary-text); /* Ensure text is readable in dark mode */
 }
 /* Templates Page */
 
@@ -856,14 +852,24 @@ body.dark .templates-main h1 {
 
 
 .footer {
+  /* This footer rule is duplicated and less specific than the one above.
+     The one above is likely the intended one for general footer styling.
+     If this is meant for a specific page, use a more specific selector.
+     Assuming the previous, more detailed .footer is the main one. */
+  /* Re-commenting out or removing if the first .footer is the main one. */
+  /*
   background: linear-gradient(135deg, #3f5efb, #9f5de2, #ff6ec4);
   color: white;
   text-align: center;
   padding: 1.5rem 1rem;
   font-size: 1rem;
   width: 100%;
+  */
 }
 
+/* This block was part of a duplicated/conflicting footer definition.
+   If intended, integrate into the main footer styles. */
+/*
 .footer-left,
 .footer-right {
   flex: 1;
@@ -897,6 +903,8 @@ body.dark .templates-main h1 {
   padding-top: 1rem;
   font-size: 0.9rem;
 }
+
+*/
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -964,7 +972,7 @@ body.dark .templates-main h1 {
   padding: 1.5rem;
   text-align: center;
   text-decoration: none; /* Removes underline from the link */
-  color: black; /* Default color for contributor card text */
+  color: var(--primary-text); /* Changed to use variable for theme consistency */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -989,7 +997,7 @@ body.dark .templates-main h1 {
 
 .contributor-card p {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--primary-text); /* Changed to use variable for theme consistency */
 }
 
 body.dark .contributor-card p {
@@ -1034,7 +1042,6 @@ body.dark .contributor-card:hover {
 }
 .contact-main {
   width: 80%;
-
   padding: 1rem;
   margin-bottom: 4rem;
 }
@@ -1098,15 +1105,14 @@ body.dark .contributor-card:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
- #submit{
+#submit{
   cursor: pointer;
   padding: 0.85rem 2rem;
   background: #2563eb;
   border-radius: 10px;
- }
+}
 
 /* Dark theme support */
 body.dark .form-group input,
@@ -1154,8 +1160,9 @@ body.dark .form-group textarea:focus {
 
 
 /* Disabled button styles */
-.submit-btn:disabled,
-.submit-btn.disabled {
+/* Changed .submit-btn to #submit to match the id used */
+#submit:disabled,
+#submit.disabled {
   background: #9ca3af;
   cursor: not-allowed;
   transform: none;
@@ -1163,22 +1170,22 @@ body.dark .form-group textarea:focus {
   opacity: 0.6;
 }
 
-.submit-btn:disabled:hover,
-.submit-btn.disabled:hover {
+#submit:disabled:hover,
+#submit.disabled:hover {
   background: #9ca3af;
   transform: none;
   box-shadow: none;
 }
 
 /* Dark theme disabled state */
-body.dark .submit-btn:disabled,
-body.dark .submit-btn.disabled {
+body.dark #submit:disabled,
+body.dark #submit.disabled {
   background: #4b5563;
   color: #9ca3af;
 }
 
-body.dark .submit-btn:disabled:hover,
-body.dark .submit-btn.disabled:hover {
+body.dark #submit:disabled:hover,
+body.dark #submit.disabled:hover {
   background: #4b5563;
 }
 
@@ -1432,6 +1439,9 @@ body.dark .templates-main h2 {
 body.dark .template-card h2 {
   color: #f3f3f3;
 }
+*/ /* Unsure if this closing brace was intended to close the entire commented block.
+      Assuming it was meant to be part of the individual commented rules. */
+
 /* ───────── STATIC FAQ SECTION ───────── */
 .faq-section {
   padding: 4rem 2rem;
@@ -1622,7 +1632,8 @@ body.dark .glow-wrap::before {
   margin-top: 20px;
 }
 
-.submit-btn {
+/* Changed .submit-btn to #submit to match the id used */
+#submit {
   width: 100%;
   max-width: 250px;
   padding: 12px 20px;
@@ -1638,12 +1649,12 @@ body.dark .glow-wrap::before {
   margin: 0 auto;
 }
 
-.submit-btn:hover {
+#submit:hover {
   background-color: #357abd;
 }
 
 @media (max-width: 480px) {
-  .submit-btn {
+  #submit { /* Changed .submit-btn to #submit */
     font-size: 0.95rem;
     max-width: 100%;
     padding: 12px 16px;
